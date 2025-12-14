@@ -79,8 +79,8 @@ body::before {
     opacity: 0.9;
     text-align: center;
 
-    color: white;
-    -webkit-text-stroke: 2px black;
+    color: black;
+    -webkit-text-stroke: 0.5px white;
 
     /* fallback para Firefox */
     text-shadow:
