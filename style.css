@@ -1,0 +1,44 @@
+/* style.css */
+
+/*
+* Establecemos la imagen como fondo del body.
+* Usamos un gradiente con el mismo color (negro o blanco)
+* y una transparencia (rgba) para simular la opacidad de la imagen.
+*/
+body {
+    /* 1. Definir la imagen de fondo y su ubicación */
+    background-image: url('img/bg.png');
+    background-size: cover; /* Asegura que la imagen cubra todo el body */
+    background-attachment: fixed; /* Opcional: mantiene el fondo fijo al hacer scroll */
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+/*
+* Para simular la opacidad del 10%, usaremos un pseudoelemento
+* (::before) para superponer una capa con transparencia (alpha).
+*/
+body::before {
+    content: ''; /* Necesario para los pseudoelementos */
+    position: fixed; /* Cubre toda la ventana, incluso al hacer scroll */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    /* 2. Establecer el color de la capa superpuesta con una opacidad del 90% (0.9) */
+    /* El 10% de opacidad de la imagen es equivalente a una superposición del 90% de un color. */
+    background-color: rgba(255, 255, 255, 0.9); /* Negro con 90% de opacidad */
+    /* Opcionalmente: Si quieres un efecto más "blanquecino" */
+    /* background-color: rgba(255, 255, 255, 0.9); Blanco con 90% de opacidad */
+
+    /* 3. Colocar la capa por debajo del contenido principal */
+    z-index: -1;
+}
+
+/* Aseguramos que el contenido principal esté por encima y visible */
+#main {
+    position: relative;
+    z-index: 1; /* Por encima de la capa de opacidad (-1) */
+    padding: 20px;
+}
