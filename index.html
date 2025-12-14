@@ -11,5 +11,112 @@
     <p>elves will rule the world</p>
     <p>cool music <a href="https://youtube.com/playlist?list=PLwcPrs5GBnJzrf-2y8AUtwoyK7i0Jcj2S&si=mPMxdMhnXhGhiiym">here</a> (made by yours truly)</p>
   </div>
+  <div id="likeContainer">
+  <button id="likeBtn">
+    <img id="likeImg" src="img/umazing.png" alt="Umazing!">
+  </button>
+  <div id="cooldownText"></div>
+  <span id="likeCount">0</span>
+  <audio id="likeSound" src="heheuma.mp3" preload="auto"></audio>
+</div>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getDatabase, ref, onValue, runTransaction } from
+"https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+const firebaseConfig = {
+  apiKey: "AIzaSyBPmmyX1gMjnI85jkMnHTQfw_QD4rDB0gY",
+  authDomain: "crxess-umazing.firebaseapp.com",
+  databaseURL: "https://crxess-umazing-default-rtdb.firebaseio.com",
+  projectId: "crxess-umazing",
+  storageBucket: "crxess-umazing.firebasestorage.app",
+  messagingSenderId: "183157124482",
+  appId: "1:183157124482:web:d897993e3721bc0db5339b",
+  measurementId: "G-18HJFBPVGL"
+};
+const cooldownText = document.getElementById("cooldownText");
+let cooldownInterval = null;
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+const likeRef = ref(db, "likes");
+const likeBtn = document.getElementById("likeBtn");
+const likeImg = document.getElementById("likeImg");
+const likeCount = document.getElementById("likeCount");
+const likeSound = document.getElementById("likeSound");
+const DAY = 24 * 60 * 60 * 1000;
+const lastLike = localStorage.getItem("lastLikeTime");
+
+if (lastLike) {
+    const remaining = DAY - (Date.now() - lastLike);
+    if (remaining > 0) {
+        lockButton();
+        startCooldownTimer();
+    }
+}
+onValue(likeRef, (snapshot) => {
+    likeCount.textContent = snapshot.val() || 0;
+});
+likeBtn.addEventListener("click", () => {
+    if (likeBtn.classList.contains("disabled")) return;
+
+    runTransaction(likeRef, (current) => (current || 0) + 1);
+
+    likeSound.currentTime = 0;
+    likeSound.play();
+
+    localStorage.setItem("lastLikeTime", Date.now());
+    lockButton();
+    startCooldownTimer();
+});
+function lockButton() {
+    likeBtn.classList.add("disabled");
+    likeImg.src = "img/umazed.png";
+    likeImg.alt = "Umazed!";
+    updateCooldownText();
+}
+function startCooldownTimer() {
+    if (cooldownInterval) return;
+
+    updateCooldownText();
+
+    cooldownInterval = setInterval(() => {
+        updateCooldownText();
+
+        const lastLike = localStorage.getItem("lastLikeTime");
+        if (!lastLike || Date.now() - lastLike >= DAY) {
+            unlockButton();
+            clearInterval(cooldownInterval);
+            cooldownInterval = null;
+        }
+    }, 60000);
+}
+function updateCooldownText() {
+    const lastLike = localStorage.getItem("lastLikeTime");
+    if (!lastLike) return;
+
+    const remaining = DAY - (Date.now() - lastLike);
+    if (remaining <= 0) {
+        cooldownText.textContent = "";
+        return;
+    }
+
+    const hours = Math.floor(remaining / (1000 * 60 * 60));
+    const minutes = Math.floor((remaining % (1000 * 60 * 60)) / (1000 * 60));
+
+    cooldownText.textContent = `vuelve en ${hours}h ${minutes}m`;
+    if (hours === 0) {
+      const seconds = Math.floor((remaining % (1000 * 60)) / 1000);
+      cooldownText.textContent = `vuelve en ${minutes}m ${seconds}s`;
+      return;
+    }
+}
+
+function unlockButton() {
+    likeBtn.classList.remove("disabled");
+    likeImg.src = "img/umazing.png";
+    likeImg.alt = "Umazing!";
+    cooldownText.textContent = "";
+    localStorage.removeItem("lastLikeTime");
+}
+</script>
 </body>
 </html>
