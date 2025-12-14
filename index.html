@@ -7,9 +7,9 @@
 </head>
 <body>
   <div id="main">
-    <h1>nai waters</h1>
-    <p>elves will rule the world</p>
-    <p>cool music <a href="https://youtube.com/playlist?list=PLwcPrs5GBnJzrf-2y8AUtwoyK7i0Jcj2S&si=mPMxdMhnXhGhiiym">here</a> (made by yours truly)</p>
+    <h1>Nai Waters</h1>
+    <p>Elezen will rule the world.</p>
+    <p>Find my music <a href="https://youtube.com/playlist?list=PLwcPrs5GBnJzrf-2y8AUtwoyK7i0Jcj2S&si=mPMxdMhnXhGhiiym">here</a></p>
   </div>
   <div id="likeContainer">
   <button id="likeBtn">
@@ -53,7 +53,9 @@ if (lastLike) {
     }
 }
 onValue(likeRef, (snapshot) => {
-    likeCount.textContent = snapshot.val() || 0;
+    const count = snapshot.val() || 0;
+    likeCount.textContent =
+      `People that found this site Umazing!: ${count}`;
 });
 likeBtn.addEventListener("click", () => {
     if (likeBtn.classList.contains("disabled")) return;
@@ -102,10 +104,10 @@ function updateCooldownText() {
     const hours = Math.floor(remaining / (1000 * 60 * 60));
     const minutes = Math.floor((remaining % (1000 * 60 * 60)) / (1000 * 60));
 
-    cooldownText.textContent = `vuelve en ${hours}h ${minutes}m`;
+    cooldownText.textContent = `You can be Umazed! again in ${hours}h ${minutes}m`;
     if (hours === 0) {
       const seconds = Math.floor((remaining % (1000 * 60)) / 1000);
-      cooldownText.textContent = `vuelve en ${minutes}m ${seconds}s`;
+      cooldownText.textContent = `You can be Umazed! again in ${minutes}m ${seconds}s`;
       return;
     }
 }
