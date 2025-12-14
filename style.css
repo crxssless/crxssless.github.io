@@ -205,16 +205,19 @@ body::before {
 }
 .quest-title { position: relative; }
 }
-/* Clase para el contenedor o los párrafos debajo del título */
+/* 🟢 Contenedor del texto de la misión */
 .quest-content {
-    opacity: 0; /* Invisible al principio */
-    transform: translateY(10px); /* Ligeramente desplazado hacia abajo */
+    opacity: 0; /* Empieza invisible */
+    transform: translateY(10px); /* Empieza un poco más abajo */
     
-    /* La magia: espera 1.2s y luego ejecuta 'contentFadeIn' durante 0.8s */
+    /* animation-delay: 1.2s 
+       (Espera exactamente lo que tarda el título en aparecer)
+    */
     animation: contentFadeIn 0.8s ease-out forwards;
-    animation-delay: 1.4s; /* Espera a que termine el título (1.2s) + un respiro (0.2s) */
+    animation-delay: 1.2s; 
 }
 
+/* La animación suave de aparición */
 @keyframes contentFadeIn {
     0% {
         opacity: 0;
