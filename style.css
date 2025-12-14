@@ -24,3 +24,31 @@ body::before {
 #main {
     padding: 1%;
 }
+#likeBtn {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+}
+
+#likeBtn img {
+    width: 48px;          /* ajusta a gusto */
+    height: auto;
+    display: block;
+}
+
+/* 🔒 estado bloqueado */
+#likeBtn.disabled {
+    pointer-events: none;
+}
+
+#likeBtn.disabled img {
+    filter: brightness(0.4);
+    opacity: 0.7;
+}
+#likeBtn img {
+    transition: filter 0.2s ease, opacity 0.2s ease;
+}
+#likeBtn:not(.disabled):hover img {
+    filter: brightness(1.2);
+}
