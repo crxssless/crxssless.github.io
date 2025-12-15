@@ -141,9 +141,9 @@ body::before {
     background: linear-gradient(
         to bottom,
         #fff2b0 0%,
-        #f5d36a 35%,
-        #d4a73c 60%,
-        #9c6a1a 100%
+        #f5d36a 3%,
+        #d4a73c 6%,
+        #9c6a1a 10%
     );
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
