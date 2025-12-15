@@ -204,24 +204,55 @@ body::before {
     100% { opacity: 0; }
 }
 .quest-title { position: relative; }
-}
+/* 🟢 Contenedor del texto de la misión */
 /* 🟢 Contenedor del texto de la misión */
 .quest-content {
-    opacity: 0; /* Empieza invisible */
-    transform: translateY(10px); /* Empieza un poco más abajo */
-    
-    /* animation-delay: 1.2s 
-       (Espera exactamente lo que tarda el título en aparecer)
-    */
-    animation: contentFadeIn 0.8s ease-out forwards;
-    animation-delay: 1.2s; 
+    /* Configuración de la animación */
+    opacity: 0; /* Invisible al inicio */
+    transform: translateY(15px); /* Empieza desplazado */
+    animation: contentFadeIn 1s ease-out forwards;
+    animation-delay: 1.4s; /* Espera a que termine el título */
+
+    /* 🎨 ESTILO FFXIV REAL */
+    margin-top: 10px;
 }
 
-/* La animación suave de aparición */
+/* Forzamos el estilo sobre los párrafos y enlaces dentro de quest-content 
+   para sobrescribir el estilo negro/blanco de #main p 
+*/
+#main .quest-content p,
+#main .quest-content a {
+    font-family: 'Jupiter', serif; /* Asegurar la fuente */
+    font-size: 1.1rem; /* Un poco más grande para legibilidad */
+    
+    /* Color blanco hueso típico de FFXIV */
+    color: #e2e2d5; 
+    
+    /* Sombra negra suave (Drop Shadow) en lugar de borde blanco */
+    text-shadow: 1px 2px 4px rgba(0, 0, 0, 0.9);
+    
+    margin: 5px 0;
+    line-height: 1.4;
+}
+
+/* Color especial para el enlace (estilo dorado suave) */
+#main .quest-content a {
+    color: #ffdebb;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(255, 222, 187, 0.3);
+    transition: color 0.3s;
+}
+
+#main .quest-content a:hover {
+    color: #fff;
+    text-shadow: 0 0 5px #ffdebb;
+}
+
+/* La animación (Keyframes) */
 @keyframes contentFadeIn {
     0% {
         opacity: 0;
-        transform: translateY(10px);
+        transform: translateY(15px);
     }
     100% {
         opacity: 1;
