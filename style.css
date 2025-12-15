@@ -1,178 +1,148 @@
-/* --- RESET Y BASE --- */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+/* === CONFIGURACIÓN GENERAL === */
+:root {
+    --bg-color: #111;           /* Fondo muy oscuro */
+    --card-bg: #1a1a1a;         /* Fondo de la tarjeta/botones */
+    --text-main: #fff;
+    --text-sub: #aaa;
+    --ffxiv-gold: #e2b346;      /* Color Quest Accepted */
+    --ffxiv-glow: rgba(226, 179, 70, 0.5);
+    --accent: #fff;
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #121212; /* Fondo oscuro estilo dashboard */
-    color: #ffffff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    overflow: hidden; /* Evita barras de desplazamiento durante animaciones */
-}
-
-/* --- CONTENEDOR PRINCIPAL --- */
-.container {
-    text-align: center;
-    max-width: 400px;
-    width: 100%;
-    padding: 2rem;
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    margin: 0;
+    padding: 0;
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
 }
 
-/* --- IMAGEN DE PERFIL (Avatar) --- */
+/* === IMAGEN DE PERFIL === */
 .profile-img {
-    width: 120px;
-    height: 120px;
+    width: 100px;
+    height: 100px;
     border-radius: 50%;
     object-fit: cover;
-    margin: 0 auto;
-    border: 3px solid #333;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
-    
-    /* Animación de entrada estándar */
-    opacity: 0;
-    animation: fadeInScale 0.8s ease-out forwards;
-}
-
-/* --- TÍTULO (NAI WATERS) - ESTILO FFXIV QUEST ACCEPTED --- */
-h1 {
-    font-size: 2rem;
-    font-weight: 700;
-    margin-bottom: 0.5rem;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    
-    /* Color FFXIV Quest Accepted (Dorado) */
-    color: #e2b346; 
-    
-    /* Sombra para dar efecto de UI de juego (borde negro suave + resplandor dorado) */
-    text-shadow: 
-        2px 2px 0px rgba(0, 0, 0, 0.8),
-        0 0 15px rgba(226, 179, 70, 0.4);
-
-    /* Animación */
-    opacity: 0;
-    animation: fadeInDown 0.8s ease-out 0.3s forwards;
-}
-
-/* --- DESCRIPCIÓN --- */
-p {
-    color: #a0a0a0;
-    font-size: 1rem;
     margin-bottom: 1rem;
+    border: 2px solid var(--card-bg);
+    box-shadow: 0 0 20px rgba(0,0,0,0.5);
     
-    /* Animación */
+    /* Animación: Aparece primero */
     opacity: 0;
-    animation: fadeIn 0.8s ease-out 0.5s forwards;
+    animation: fadeIn 0.5s ease-out forwards;
 }
 
-/* --- ESTILOS DE LOS BOTONES --- */
-.links {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    width: 100%;
-}
-
-.btn {
-    background-color: #1e1e1e;
-    color: #fff;
-    text-decoration: none;
-    padding: 1rem;
-    border-radius: 8px;
-    font-weight: 600;
-    transition: all 0.3s ease;
-    border: 1px solid #333;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    
-    /* Animación inicial (estado invisible) */
-    opacity: 0;
-    animation: fadeInUp 0.6s ease-out forwards;
-}
-
-/* Stagger (escalera) para botones normales */
-.btn:nth-child(1) { animation-delay: 0.6s; }
-.btn:nth-child(2) { animation-delay: 0.7s; }
-.btn:nth-child(3) { animation-delay: 0.8s; }
-
-/* Hover general */
-.btn:hover {
-    background-color: #333;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-    border-color: #555;
-}
-
-/* --- BOTÓN UMAZING (ESPECIAL) --- */
-.btn.umazing {
-    background: linear-gradient(135deg, #2b5876 0%, #4e4376 100%); /* Un tono distinto para resaltar */
-    border: 1px solid #6e5f9e;
-    font-weight: bold;
+/* === TÍTULO (NAI WATERS) - ESTILO FFXIV === */
+h1 {
+    font-size: 1.8rem;
+    margin: 0.5rem 0;
+    font-weight: 700;
+    text-transform: uppercase;
     letter-spacing: 1px;
     
-    /* ANIMACIÓN DIFERIDA: Se ejecuta después de todo lo demás */
-    opacity: 0; /* Asegura que no se vea al inicio */
-    animation: fadeInUp 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-    animation-delay: 1.5s; /* 1.5s de espera: aparece al final */
+    /* EL COLOR SOLICITADO */
+    color: var(--ffxiv-gold);
+    
+    /* EFECTO QUEST ACCEPTED (Sombra dura + Resplandor) */
+    text-shadow: 
+        2px 2px 0px #000000, 
+        0 0 15px var(--ffxiv-glow);
+    
+    /* Animación: Aparece segundo */
+    opacity: 0;
+    animation: slideDown 0.6s ease-out 0.3s forwards;
 }
 
-.btn.umazing:hover {
-    filter: brightness(1.2);
-    box-shadow: 0 0 15px rgba(78, 67, 118, 0.6);
-    transform: translateY(-3px) scale(1.02);
+/* === DESCRIPCIÓN / TEXTO SECUNDARIO === */
+p {
+    color: var(--text-sub);
+    font-size: 1rem;
+    margin-bottom: 2rem;
+    
+    /* Animación: Aparece tercero */
+    opacity: 0;
+    animation: fadeIn 0.6s ease-out 0.6s forwards;
 }
 
-/* --- KEYFRAMES (ANIMACIONES) --- */
-
-/* Aparecer y subir */
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+/* === CONTENEDOR DE BOTONES === */
+.links {
+    width: 100%;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 0 20px;
 }
 
-/* Aparecer y bajar (para el título) */
-@keyframes fadeInDown {
-    from {
-        opacity: 0;
-        transform: translateY(-20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+/* === BOTONES ESTÁNDAR === */
+.btn {
+    background-color: var(--card-bg);
+    color: var(--text-main);
+    padding: 16px;
+    border-radius: 8px;
+    text-decoration: none;
+    text-align: center;
+    font-weight: 600;
+    transition: transform 0.2s, background-color 0.2s;
+    border: 1px solid #333;
+    
+    /* Animación: Aparecen en cascada */
+    opacity: 0;
+    animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
 }
 
-/* Aparecer simple */
+.btn:hover {
+    background-color: #333;
+    transform: scale(1.02);
+    border-color: var(--ffxiv-gold);
+}
+
+/* Delays para los botones normales */
+.btn:nth-child(1) { animation-delay: 0.8s; }
+.btn:nth-child(2) { animation-delay: 0.9s; }
+.btn:nth-child(3) { animation-delay: 1.0s; }
+
+/* === EL BOTÓN "UMAZING" (ESPECIAL) === */
+/* Asegúrate de que este botón tenga la clase "umazing" en tu HTML 
+   Ejemplo: <a href="..." class="btn umazing">Umazing Arcade</a> */
+
+.umazing {
+    background: linear-gradient(90deg, #2b2b2b, #1a1a1a);
+    border-color: var(--ffxiv-gold); /* Borde dorado sutil */
+    color: var(--ffxiv-gold);
+    
+    /* ANIMACIÓN CRÍTICA: FADE IN FINAL */
+    opacity: 0;
+    /* Comienza a animarse a los 2.0 segundos (muy tarde) */
+    animation: fadeInUp 0.8s ease-out 2.0s forwards; 
+}
+
+.umazing:hover {
+    box-shadow: 0 0 15px var(--ffxiv-glow);
+    background: #000;
+}
+
+/* === KEYFRAMES (ANIMACIONES) === */
 @keyframes fadeIn {
-    from { opacity: 0; }
     to { opacity: 1; }
 }
 
-/* Aparecer con zoom (para avatar) */
-@keyframes fadeInScale {
-    from {
-        opacity: 0;
-        transform: scale(0.8);
-    }
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
+@keyframes slideDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
 }
+
+@keyframes popIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes fadeInUp {
+    from { 
+        opacity: 0; 
+        transform: translateY(20
