@@ -1,148 +1,261 @@
-/* === CONFIGURACIÓN GENERAL === */
-:root {
-    --bg-color: #111;           /* Fondo muy oscuro */
-    --card-bg: #1a1a1a;         /* Fondo de la tarjeta/botones */
-    --text-main: #fff;
-    --text-sub: #aaa;
-    --ffxiv-gold: #e2b346;      /* Color Quest Accepted */
-    --ffxiv-glow: rgba(226, 179, 70, 0.5);
-    --accent: #fff;
-}
-
-body {
-    background-color: var(--bg-color);
-    color: var(--text-main);
-    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+html, body {
     margin: 0;
     padding: 0;
+    height: 100%;
+}
+@font-face {
+    font-family: 'Jupiter';
+    src: url('jupiter.otf') format('opentype');
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+
+    background-image: url('img/bg.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    opacity: 0.5;
+    z-index: -1;
+}
+
+#main {
+    padding: 1%;
+    text-align: center;
+}
+
+/* aplica el estilo outline a todo el texto interno */
+#main h1 {
+    font-family: 'Jupiter', serif;
+    font-size: 2.4rem;
+    margin-bottom: 0.5rem;
+    text-align: center;
+
+    /* 🎨 degradado dorado */
+    background: linear-gradient(
+        to bottom,
+        #fff2b0 0%,
+        #f5d36a 35%,
+        #d4a73c 60%,
+        #9c6a1a 100%
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    /* 🖤 borde oscuro (fake stroke) */
+    text-shadow:
+        -1px -1px 0 #3a2a0a,
+         1px -1px 0 #3a2a0a,
+        -1px  1px 0 #3a2a0a,
+         1px  1px 0 #3a2a0a,
+
+        /* ✨ glow suave */
+        0 0 6px rgba(255, 215, 120, 0.5);
+}
+#main p,
+#main a {
+    font-size: 0.9rem;
+    color: black;
+    text-shadow:
+        -1px -1px 0 #fff,
+         1px -1px 0 #fff,
+        -1px  1px 0 #fff,
+         1px  1px 0 #fff;
+}
+
+
+/* 💜 botón */
+#likeBtn {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+}
+
+#likeBtn img {
+    width: 128px;
+    height: auto;
+    display: block;
+    transition:
+        filter 0.2s ease,
+        opacity 0.2s ease,
+        transform 0.15s ease;
+}
+
+/* hover */
+#likeBtn:not(.disabled):hover img {
+    filter: brightness(1.2);
+    transform: scale(1.08);
+}
+
+/* 🔒 estado bloqueado */
+#likeBtn.disabled {
+    pointer-events: none;
+}
+
+#likeBtn.disabled img {
+    filter: brightness(0.4);
+    opacity: 0.7;
+}
+
+/* 📍 contenedor fijo */
+#likeContainer {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-}
+    gap: 6px;
 
-/* === IMAGEN DE PERFIL === */
-.profile-img {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    object-fit: cover;
-    margin-bottom: 1rem;
-    border: 2px solid var(--card-bg);
-    box-shadow: 0 0 20px rgba(0,0,0,0.5);
-    
-    /* Animación: Aparece primero */
-    opacity: 0;
-    animation: fadeIn 0.5s ease-out forwards;
+    z-index: 10;
 }
-
-/* === TÍTULO (NAI WATERS) - ESTILO FFXIV === */
-h1 {
-    font-size: 1.8rem;
-    margin: 0.5rem 0;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    
-    /* EL COLOR SOLICITADO */
-    color: var(--ffxiv-gold);
-    
-    /* EFECTO QUEST ACCEPTED (Sombra dura + Resplandor) */
-    text-shadow: 
-        2px 2px 0px #000000, 
-        0 0 15px var(--ffxiv-glow);
-    
-    /* Animación: Aparece segundo */
-    opacity: 0;
-    animation: slideDown 0.6s ease-out 0.3s forwards;
-}
-
-/* === DESCRIPCIÓN / TEXTO SECUNDARIO === */
-p {
-    color: var(--text-sub);
-    font-size: 1rem;
-    margin-bottom: 2rem;
-    
-    /* Animación: Aparece tercero */
-    opacity: 0;
-    animation: fadeIn 0.6s ease-out 0.6s forwards;
-}
-
-/* === CONTENEDOR DE BOTONES === */
-.links {
-    width: 100%;
-    max-width: 400px;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    padding: 0 20px;
-}
-
-/* === BOTONES ESTÁNDAR === */
-.btn {
-    background-color: var(--card-bg);
-    color: var(--text-main);
-    padding: 16px;
-    border-radius: 8px;
-    text-decoration: none;
+.likeText {
+    font-size: 0.9rem;
+    opacity: 0.95;
     text-align: center;
-    font-weight: 600;
-    transition: transform 0.2s, background-color 0.2s;
-    border: 1px solid #333;
-    
-    /* Animación: Aparecen en cascada */
+
+    color: black;
+
+    text-shadow:
+        -1px -1px 0 #fff,
+         1px -1px 0 #fff,
+        -1px  1px 0 #fff,
+         1px  1px 0 #fff;
+}
+.quest-title {
+    font-family: 'Jupiter', serif;
+    font-size: 2.4rem;
+    text-align: center;
+    margin-bottom: 0.5rem;
+
+    /* degradado dorado */
+    background: linear-gradient(
+        to bottom,
+        #fff2b0 0%,
+        #f5d36a 35%,
+        #d4a73c 60%,
+        #9c6a1a 100%
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    /* borde + glow */
+    text-shadow:
+        -1px -1px 0 #2c1c05,
+         1px -1px 0 #2c1c05,
+        -1px  1px 0 #2c1c05,
+         1px  1px 0 #2c1c05,
+        0 0 8px rgba(255, 215, 120, 0.6);
+
+    /* animación */
     opacity: 0;
-    animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    transform: translateY(12px) scale(0.96);
+    animation: questEnter 1.2s ease-out forwards;
 }
+@keyframes questEnter {
+    0% {
+        opacity: 0;
+        transform: translateY(12px) scale(0.96);
+        text-shadow:
+            0 0 20px rgba(255, 220, 150, 0.9);
+    }
 
-.btn:hover {
-    background-color: #333;
-    transform: scale(1.02);
-    border-color: var(--ffxiv-gold);
+    60% {
+        opacity: 1;
+        transform: translateY(0) scale(1.02);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        text-shadow:
+            -1px -1px 0 #2c1c05,
+             1px -1px 0 #2c1c05,
+            -1px  1px 0 #2c1c05,
+             1px  1px 0 #2c1c05,
+             0 0 8px rgba(255, 215, 120, 0.6);
+    }
 }
-
-/* Delays para los botones normales */
-.btn:nth-child(1) { animation-delay: 0.8s; }
-.btn:nth-child(2) { animation-delay: 0.9s; }
-.btn:nth-child(3) { animation-delay: 1.0s; }
-
-/* === EL BOTÓN "UMAZING" (ESPECIAL) === */
-/* Asegúrate de que este botón tenga la clase "umazing" en tu HTML 
-   Ejemplo: <a href="..." class="btn umazing">Umazing Arcade</a> */
-
-.umazing {
-    background: linear-gradient(90deg, #2b2b2b, #1a1a1a);
-    border-color: var(--ffxiv-gold); /* Borde dorado sutil */
-    color: var(--ffxiv-gold);
-    
-    /* ANIMACIÓN CRÍTICA: FADE IN FINAL */
+.quest-title::after {
+    content: '';
+    position: absolute;
+    inset: -8px;
+    background: radial-gradient(
+        circle,
+        rgba(255, 220, 150, 0.35),
+        transparent 70%
+    );
     opacity: 0;
-    /* Comienza a animarse a los 2.0 segundos (muy tarde) */
-    animation: fadeInUp 0.8s ease-out 2.0s forwards; 
+    animation: questFlash 0.6s ease-out 0.4s;
+    pointer-events: none;
+}
+@keyframes questFlash {
+    0% { opacity: 0; }
+    50% { opacity: 1; }
+    100% { opacity: 0; }
+}
+.quest-title { position: relative; }
+/* 🟢 Contenedor del texto de la misión */
+/* 🟢 Contenedor del texto de la misión */
+.quest-content {
+    /* Configuración de la animación */
+    opacity: 0; /* Invisible al inicio */
+    transform: translateY(15px); /* Empieza desplazado */
+    animation: contentFadeIn 1s ease-out forwards;
+    animation-delay: 1.4s; /* Espera a que termine el título */
+
+    /* 🎨 ESTILO FFXIV REAL */
+    margin-top: 10px;
 }
 
-.umazing:hover {
-    box-shadow: 0 0 15px var(--ffxiv-glow);
-    background: #000;
+/* Forzamos el estilo sobre los párrafos y enlaces dentro de quest-content 
+   para sobrescribir el estilo negro/blanco de #main p 
+*/
+#main .quest-content p,
+#main .quest-content a {
+    font-family: 'Jupiter', serif; /* Asegurar la fuente */
+    font-size: 1.1rem; /* Un poco más grande para legibilidad */
+    
+    /* Color blanco hueso típico de FFXIV */
+    color: #e2e2d5; 
+    
+    /* Sombra negra suave (Drop Shadow) en lugar de borde blanco */
+    text-shadow: 1px 2px 4px rgba(0, 0, 0, 0.9);
+    
+    margin: 5px 0;
+    line-height: 1.4;
 }
 
-/* === KEYFRAMES (ANIMACIONES) === */
-@keyframes fadeIn {
-    to { opacity: 1; }
+/* Color especial para el enlace (estilo dorado suave) */
+#main .quest-content a {
+    color: #ffdebb;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(255, 222, 187, 0.3);
+    transition: color 0.3s;
 }
 
-@keyframes slideDown {
-    from { opacity: 0; transform: translateY(-10px); }
-    to { opacity: 1; transform: translateY(0); }
+#main .quest-content a:hover {
+    color: #fff;
+    text-shadow: 0 0 5px #ffdebb;
 }
 
-@keyframes popIn {
-    from { opacity: 0; transform: scale(0.9); }
-    to { opacity: 1; transform: scale(1); }
+/* La animación (Keyframes) */
+@keyframes contentFadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
-
-@keyframes fadeInUp {
-    from { 
-        opacity: 0; 
-        transform: translateY(20
